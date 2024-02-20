@@ -26,6 +26,10 @@ menu_vidgets_del = ['error_t', 'back_btn', 'eng_btn', 'rus_btn', 'f_text', 'entr
     'button_color3', 'ready_button', 'file_premission1', 'file_premission2', 'file_premission3', 
     'wrong_path1', 'wrong_path2', 'wrong_path3', 'wrong_sheet1', 'wrong_sheet2', 'wrong_sheet3', 'wrong_cell1', 'wrong_cell2', 'wrong_cell3']
 
+data_x1 =data_x2=data_x3=data_y1=data_y2=data_y3=title_line1=title_line2 = title_line3= entry_sheet1= \
+    entry_sheet2=entry_sheet3=entry_path1=entry_path2=entry_path3=\
+        file_premission1=file_premission2=file_premission3=wrong_path1=wrong_path2=\
+            wrong_path3=wrong_sheet1=wrong_sheet2=wrong_sheet3=wrong_cell1=wrong_cell2=wrong_cell3=0
 def menu_place_forget():
     # deletes (hides) vidgets from main menu
     title.place_forget()
@@ -232,45 +236,21 @@ def excel_g():
     title_lOY.place(x=25, y=125)
     title_OY.place(x=400, y=125, width=300)
     ready_button.place(x=600, y=700, width=175)
-
-    label_g1.place(relx=0.5, y=175, anchor="c")
-    title_path1.place(x=25, y=225)
-    entry_path1.place(x=175, y=225, width=500)
-    sheet_l1.place(x=25, y=255)
-    entry_sheet1.place(x=80, y=255, width=185)
-    data_x1l.place(x=180, y=255)
-    data_x1.place(x=325, y=255, width=100)
-    data_y1l.place(x=450, y=255)
-    data_y1.place(x=600, y=255, width=100)
-    title_line_l1.place(x=25, y=325)
-    title_line1.place(x=200, y=325)
-    button_color1.place(x=450, y=325, width=150, height=30)
-
-    label_g2.place(relx=0.5, y=375, anchor="c")
-    title_path2.place(x=25, y=425)
-    entry_path2.place(x=175, y=425, width=500)
-    sheet_l2.place(x=25, y=455)
-    entry_sheet2.place(x=80, y=455, width=185)
-    data_x2l.place(x=180, y=455)
-    data_x2.place(x=325, y=455, width=100)
-    data_y2l.place(x=450, y=455)
-    data_y2.place(x=600, y=455, width=100)
-    title_line_l2.place(x=25, y=525)
-    title_line2.place(x=200, y=525)
-    button_color2.place(x=450, y=525, width=150, height=30)
-
-    label_g3.place(relx=0.5, y=575, anchor="c")
-    title_path3.place(x=25, y=625)
-    entry_path3.place(x=175, y=625, width=500)
-    sheet_l3.place(x=25, y=655)
-    entry_sheet3.place(x=80, y=655, width=185)
-    data_x3l.place(x=180, y=655)
-    data_x3.place(x=325, y=655, width=100)
-    data_y3l.place(x=450, y=655)
-    data_y3.place(x=600, y=655, width=100)
-    title_line_l3.place(x=25, y=725)
-    title_line3.place(x=200, y=725)
-    button_color3.place(x=450, y=725, width=150, height=30)
+    for i in range(1, 4):
+        j = i-1
+        exec(f'''
+label_g{i}.place(relx=0.5, y=175+200*j, anchor="c")
+title_path{i}.place(x=25, y=225+200*j)
+entry_path{i}.place(x=175, y=225+200*j, width=500)
+sheet_l{i}.place(x=25, y=255+200*j)
+entry_sheet{i}.place(x=80, y=255+200*j, width=185)
+data_x{i}l.place(x=180, y=255+200*j)
+data_x{i}.place(x=325, y=255+200*j, width=100)
+data_y{i}l.place(x=450, y=255+200*j)
+data_y{i}.place(x=600, y=255+200*j, width=100)
+title_line_l{i}.place(x=25, y=325+200*j)
+title_line{i}.place(x=200, y=325+200*j)
+button_color{i}.place(x=450, y=325+200*j, width=150, height=30)''')
 
 def exit_c():
     exit()
@@ -481,52 +461,24 @@ def build_ex():
     cells2 = check_data2()
     cells3 = check_data3()
     if cells1 and cells2 and cells3:
-
-        if cells1 != [None]:
-            x = get_excel_data(data_x1.get())
-            y = get_excel_data(data_y1.get())
-            if x and y:
-                g1 = Excel_graph(x, y, color_1, title_line1.get(), entry_path1.get(), entry_sheet1.get())
-                if not g1.check_data():
-                    wrong_cell1.place(relx=0.5, y=300, anchor="c")
+        for i in range(1, 4):
+            exec(f'''
+if cells{i} != [None]:
+    x = get_excel_data(data_x{i}.get())
+    y = get_excel_data(data_y{i}.get())
+    if x and y:
+        g{i} = Excel_graph(x, y, color_{i}, title_line{i}.get(), entry_path{i}.get(), entry_sheet{i}.get())
+        if not g{i}.check_data():
+            wrong_cell{i}.place(relx=0.5, y=300, anchor="c")
                     
-                else:
-                    print('a')
-                    ax.plot(g1.data_x, g1.data_y, linewidth=3, color=g1.color, label=g1.title)
-                    wrong_cell1.place_forget()
+        else:
+            print('a')
+            ax.plot(g{i}.data_x, g{i}.data_y, linewidth=3, color=g{i}.color, label=g{i}.title)
+            wrong_cell{i}.place_forget()
             
-            else:
-                wrong_cell1.place(relx=0.5, y=300, anchor="c")
+    else:
+        wrong_cell{i}.place(relx=0.5, y=300, anchor="c")''')
         
-        if cells2 != [None]:
-            x = get_excel_data(data_x2.get())
-            y = get_excel_data(data_y2.get())
-            if x and y:
-                g2 = Excel_graph(x, y, color_2, title_line2.get(), entry_path2.get(), entry_sheet2.get())
-                if not g2.check_data():
-                    wrong_cell2.place(relx=0.5, y=500, anchor="c")
-                    
-                else:
-                    ax.plot(g2.data_x, g2.data_y, linewidth=3, color=g2.color, label=g2.title)
-                    wrong_cell2.place_forget()
-            
-            else:
-                wrong_cell2.place(relx=0.5, y=500, anchor="c")
-        
-        if cells3 != [None]:
-            x = get_excel_data(data_x3.get())
-            y = get_excel_data(data_y3.get())
-            if x and y:
-                g3 = Excel_graph(x, y, color_3, title_line3.get(), entry_path3.get(), entry_sheet3.get())
-                if not g3.check_data():
-                    wrong_cell3.place(relx=0.5, y=500, anchor="c")
-                    
-                else:
-                    ax.plot(g3.data_x, g3.data_y, linewidth=3, color=g3.color, label=g3.title)
-                    wrong_cell3.place_forget()
-            
-            else:
-                wrong_cell3.place(relx=0.5, y=300, anchor="c")
         
         ax.legend(bbox_to_anchor=(1,0), loc="lower left")
         ax.set_title(graph_title, fontsize=24)
@@ -699,25 +651,12 @@ title_graph = tk.Entry(font = ('Arial', 20))
 title_OX = tk.Entry(font = ('Arial', 17))
 title_OY = tk.Entry(font = ('Arial', 17))
 
-data_x1 = tk.Entry(font = ('Arial', 15))
-data_x2 = tk.Entry(font = ('Arial', 15))
-data_x3 = tk.Entry(font = ('Arial', 15))
+entries = ['data_x1', 'data_x2', 'data_x3', 'data_y1', 'data_y2', 'data_y3', 'title_line1',
+           'title_line2', 'title_line3', 'entry_sheet1', 'entry_sheet2', 'entry_sheet3',
+             'entry_path1', 'entry_path2', 'entry_path3']
 
-data_y1 = tk.Entry(font = ('Arial', 15))
-data_y2 = tk.Entry(font = ('Arial', 15))
-data_y3 = tk.Entry(font = ('Arial', 15))
-
-title_line1 = tk.Entry(font = ('Arial', 15))
-title_line2 = tk.Entry(font = ('Arial', 15))
-title_line3 = tk.Entry(font = ('Arial', 15))
-
-entry_sheet1 = tk.Entry(font = ('Arial', 15))
-entry_sheet2 = tk.Entry(font = ('Arial', 15))
-entry_sheet3 = tk.Entry(font = ('Arial', 15))
-
-entry_path1 = tk.Entry(font = ('Arial', 15))
-entry_path2 = tk.Entry(font = ('Arial', 15))
-entry_path3 = tk.Entry(font = ('Arial', 15))
+for i in entries:
+    exec(f"{i} = tk.Entry(font = ('Arial', 15))")
 
 data_x1l =  tk.Label(text=languages[lang][19], font = ('Arial', 15))
 data_x2l = tk.Label(text=languages[lang][19], font = ('Arial', 15))
@@ -754,33 +693,16 @@ ready_button = tk.Button(text=languages[lang][12], font=("Arial",25),
                          command=build_ex)
 
 #error messages in excel graphs
-
-file_premission1 = tk.Label(text=languages[lang][28], font=("Arial",15),
-                           foreground='red')
-file_premission2 = tk.Label(text=languages[lang][28], font=("Arial",15),
-                           foreground='red')
-file_premission3 = tk.Label(text=languages[lang][28], font=("Arial",15),
-                           foreground='red')
-
-wrong_path1 = tk.Label(text=languages[lang][29], font=("Arial",15),
-                           foreground='red')
-wrong_path2 = tk.Label(text=languages[lang][29], font=("Arial",15),
-                           foreground='red')
-wrong_path3 = tk.Label(text=languages[lang][29], font=("Arial",15),
-                           foreground='red')
-
-wrong_sheet1 = tk.Label(text=languages[lang][30], font=("Arial",15),
-                           foreground='red')
-wrong_sheet2 = tk.Label(text=languages[lang][30], font=("Arial",15),
-                           foreground='red')
-wrong_sheet3 = tk.Label(text=languages[lang][30], font=("Arial",15),
-                           foreground='red')
-
-wrong_cell1 = tk.Label(text=languages[lang][31], font=("Arial",15),
-                           foreground='red')
-wrong_cell2 = tk.Label(text=languages[lang][31], font=("Arial",15),
-                           foreground='red')
-wrong_cell3 = tk.Label(text=languages[lang][31], font=("Arial",15),
-                           foreground='red')
+labels_err =['file_premission1', 'file_premission2', 'file_premission3',
+             'wrong_path1', 'wrong_path2', 'wrong_path3', 'wrong_sheet1',
+             'wrong_sheet2', 'wrong_sheet3', 'wrong_cell1', 'wrong_cell2', 'wrong_cell3']
+i = 28
+cnt = 0
+for el in labels_err:
+    exec(f'{el} = tk.Label(text=languages[lang][{i}], font=("Arial",15),\
+                           foreground="red")')
+    cnt += 1
+    if cnt%3==0:
+        i+=1
 
 window.mainloop()
