@@ -4,7 +4,7 @@ This project allows you to build mathematical graphs as well as graphs with Exce
 ## How to use
 
 1) Install python
-2) Download these files: `requirements.txt`, `graphX.py`
+2)Run this command: ``git clone https://github.com/Sohar20/GraphX.git`` or, if you don't have git, download these files: `requirements.txt`, `graphX.py`
 3) Run in terminal this command: `pip install -r requirements.txt`
 4) Run file `graphX.py`
 
