@@ -10,5 +10,5 @@ This project allows you to build mathematical graphs as well as graphs with Exce
 
 After that you'll be able to build many graphs, which might be useful for job and studies
 
-## What's new?
+## Version 1_1. What's new?
 There aren't many changes in this version: just reduced amount of code lines.
