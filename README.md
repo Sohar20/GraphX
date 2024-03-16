@@ -9,3 +9,7 @@ This project allows you to build mathematical graphs as well as graphs with Exce
 4) Run file "graphX.py"
 
 After that you'll be able to build many graphs, which might be useful for job and studies
+
+## And one more thing
+
+Every branch of the project is a new version of it, so check out the branches to get the newest version of the project!
